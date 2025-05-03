@@ -56,8 +56,12 @@ output "public_instance_id" {
   value = module.ec2_instances.public_instance_id
 }
 
-output "private_instance_id" {
-  value = module.ec2_instances.private_instance_id
+output "private_instance_maquina_01_id" {
+  value = module.ec2_instances.private_instance_maquina_01_id
+}
+
+output "private_instance_maquina_02_id" {
+  value = module.ec2_instances.private_instance_maquina_02_id
 }
 
 output "key_name" {
