@@ -1,0 +1,29 @@
+### COMANDOS TERRAFORM ###
+
+/* Pegar credenciais da aws */
+
+cat .aws/credentials
+
+/* Colocar credenciais no computador */
+
+aws configure
+
+/* Colocar token no computador */
+
+aws configure set aws_session_token
+
+/* Rodar terraform */
+
+terraform apply
+
+/* Confirmar applycação */
+
+yes
+
+/* Destruir Terraform */
+
+terraform destroy
+
+/* Confirmar destroy */
+
+yes

@@ -38,17 +38,30 @@ module "ec2_instances" {
   vpc_security_group_id = module.network.ec2_sg
 }
 
-
-
 # Outputs do módulo EC2
 output "public_instance_id" {
   value = module.ec2_instances.public_instance_id
 }
 
-output "private_instance_id" {
-  value = module.ec2_instances.private_instance_id
+output "private_instance_maquina_01_id" {
+  value = module.ec2_instances.private_instance_maquina_01_id
+}
+
+output "private_instance_maquina_02_id" {
+  value = module.ec2_instances.private_instance_maquina_02_id
 }
 
 output "key_name" {
   value = module.network.key_name 
+}
+
+# Módulo do s3
+module "s3_bucket" {
+  source                          = "./modules/s3"
+  bucket_terabite_mestre_sorvete  = "s3-bucket-module"
+}
+
+# Outputs do módulo s3
+output "bucket_terabite_mestre_sorvete" {
+  value = module.s3_bucket.bucket_terabite_mestre_sorvete
 }
