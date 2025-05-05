@@ -22,6 +22,7 @@ resource "aws_subnet" "private_subnet" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_subnet_cidr
   availability_zone = "us-east-1a"
+
   tags = {
     Name = "subrede-privada-terabite"
   }
@@ -46,6 +47,7 @@ resource "aws_network_acl_rule" "allow_all_outbound" {
   cidr_block     = "0.0.0.0/0"
 }
 
+# Permitir entrada na porta 22 (SSH)
 resource "aws_network_acl_rule" "allow_ssh_inbound" {
   network_acl_id = aws_network_acl.main_acl.id
   rule_number    = 110
@@ -55,6 +57,18 @@ resource "aws_network_acl_rule" "allow_ssh_inbound" {
   cidr_block     = "0.0.0.0/0"
   from_port      = 22
   to_port        = 22
+}
+
+# Permitir resposta de conexões: portas efêmeras de entrada
+resource "aws_network_acl_rule" "allow_ephemeral_inbound" {
+  network_acl_id = aws_network_acl.main_acl.id
+  rule_number    = 120
+  egress         = false
+  protocol       = "tcp"
+  rule_action    = "allow"
+  cidr_block     = "0.0.0.0/0"
+  from_port      = 1024
+  to_port        = 65535
 }
 
 resource "aws_network_acl_association" "public_subnet_acl" {
@@ -140,6 +154,20 @@ resource "aws_security_group" "ec2_sg" {
   ingress {
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+   ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+   ingress {
+    from_port   = 443
+    to_port     = 443
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

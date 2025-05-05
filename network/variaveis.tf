@@ -22,6 +22,12 @@ variable "key_pair_name" {
   default = "terabite"  
 }
 
+variable "vpc_security_group_id" {
+  description = "ID do Security Group da EC2"
+  type        = string
+  default = "gp-terabite"  
+}
+
 
 variable "subnet_ids" {
   description = "Lista de IDs de subnets"
