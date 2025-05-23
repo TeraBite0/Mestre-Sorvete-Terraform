@@ -1,5 +1,5 @@
 # Chaves PEM
-.pem
+*.pem
 
 # Local .terraform directories
 **/.terraform/*
